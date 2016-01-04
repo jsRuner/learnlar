@@ -18,6 +18,7 @@ Route::get('home', 'HomeController@index');*/
 Route::get('/', 'HomeController@index');
 Route::get('articles', 'ArticlesController@index');
 Route::get('pages/{id}', 'PagesController@show');
+Route::get('articles/{id}', 'ArticlesController@show');
 Route::post('comment/store', 'CommentsController@store');
 /*
 Route::controllers([

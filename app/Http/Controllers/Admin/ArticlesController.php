@@ -2,13 +2,13 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\page;
+
+use Illuminate\Http\Request;
+use App\article;
 use App\comment;
 use Redirect, Input, Auth;
 
-use Illuminate\Http\Request;
-
-class PagesController extends Controller {
+class ArticlesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,6 +18,7 @@ class PagesController extends Controller {
 	public function index()
 	{
 		//
+        return view('admin.articles.index')->withArticles(Article::all());
 	}
 
 	/**
@@ -27,8 +28,8 @@ class PagesController extends Controller {
 	 */
 	public function create()
 	{
-		//
-        return view('admin.pages.create');
+
+        return view('admin.articles.create');
 	}
 
 	/**
@@ -39,22 +40,22 @@ class PagesController extends Controller {
 	public function store(Request $request)
 	{
 		//
-        $this->validate($request, [
-			'title' => 'required|unique:pages|max:255',
+         $this->validate($request, [
+			'title' => 'required|unique:articles|max:255',
 			'body' => 'required',
 		]);
 
-		$page = new Page;
-		$page->title = Input::get('title');
-		$page->body = Input::get('body');
-		$page->user_id = 1;//Auth::user()->id;
+		$article = new Article;
+		$article->title = Input::get('title');
+		$article->body = Input::get('body');
+		$article->image = Input::get('image');
+		$article->user_id = 1;//Auth::user()->id;
 
-		if ($page->save()) {
-            return Redirect::to('admin');
+		if ($article->save()) {
+            return Redirect::to('admin/articles');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
-
 	}
 
 	/**
@@ -77,7 +78,7 @@ class PagesController extends Controller {
 	public function edit($id)
 	{
 		//
-        return view('admin.pages.edit')->withPage(Page::find($id));
+        return view('admin.articles.edit')->withArticle(Article::find($id));
 	}
 
 	/**
@@ -89,18 +90,18 @@ class PagesController extends Controller {
 	public function update(Request $request,$id)
 	{
 		//
-        $this->validate($request, [
-			'title' => 'required|unique:pages,title,'.$id.'|max:255',
+         $this->validate($request, [
+			'title' => 'required|unique:articles,title,'.$id.'|max:255',
 			'body' => 'required',
 		]);
 
-		$page = Page::find($id);
-		$page->title = Input::get('title');
-		$page->body = Input::get('body');
-		$page->user_id = 1;//Auth::user()->id;
+		$article = Article::find($id);
+		$article->title = Input::get('title');
+		$article->body = Input::get('body');
+		$article->user_id = 1;//Auth::user()->id;
 
-		if ($page->save()) {
-            return Redirect::to('admin');
+		if ($article->save()) {
+            return Redirect::to('admin/articles');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -115,13 +116,14 @@ class PagesController extends Controller {
 	public function destroy($id)
 	{
 		//
-        $page = Page::find($id);
-        $page->delete();
+        $article = Article::find($id);
 
         //先删除该文章的评论
-        Comment::where('page_id', '=', $id)->delete();
+        Comment::where('article_id', '=', $id)->delete();
 
-        return Redirect::to('admin');
+        $article->delete();
+
+        return Redirect::to('admin/articles');
 	}
 
 }

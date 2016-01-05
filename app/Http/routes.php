@@ -34,5 +34,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 {
     Route::get('/', 'AdminHomeController@index');
     Route::resource('pages', 'PagesController');
+    Route::resource('articles', 'ArticlesController');
     Route::resource('comments', 'CommentsController');
 });

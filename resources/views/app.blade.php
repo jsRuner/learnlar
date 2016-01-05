@@ -30,6 +30,8 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li><a href="/admin/comments">管理评论</a></li>
+            </ul><ul class="nav navbar-nav">
+                <li><a href="/admin/articles">管理文章</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

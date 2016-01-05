@@ -14,7 +14,6 @@ class ArticleTableSeeder extends Seeder {
         'title'   => 'Title '.$i,
         'slug'    => 'first-page',
         'body'    => 'Body '.$i,
-        'body'    => 'Body '.$i,
         'image'    => 'image '.$i,
         'user_id' => 1,
       ]);

@@ -48,7 +48,27 @@ class ArticlesController extends Controller {
 		$article = new Article;
 		$article->title = Input::get('title');
 		$article->body = Input::get('body');
-		$article->image = Input::get('image');
+
+        //图片上传.保存文件名。目录为固定地址。根目录下的public/uploadfiles
+        if ($request->hasFile('image'))
+        {
+            //
+            $file = $request->file('image');
+            if ($file->isValid())
+            {
+                $clientName = $file -> getClientOriginalName();
+                $extension = $file -> getClientOriginalExtension();
+                $filename = md5(date('ymdhis').$clientName).".".$extension;;
+                $file->move('public/uploadfiles',$filename);
+                $article->image = $filename;
+            }else{
+                //默认的图片
+                $article->image = 'article.default.jpg';
+            }
+        }
+
+
+
 		$article->user_id = 1;//Auth::user()->id;
 
 		if ($article->save()) {

@@ -5,16 +5,6 @@
 
 
 
-<div id="title" style="text-align: center;">
-    <h1>Learn Laravel 5</h1>
-    <div style="padding: 5px; font-size: 16px;">{{ Inspiring::quote() }}</div>
-    <ul class="topmenu">
-        <li><a href="/">首页</a></li>
-        <li><a href="{{ URL('articles') }}">文章</a></li>
-    </ul>
-    <div style="clear: both;"></div>
-</div>
-<hr>
 <div id="content">
     <ul>
         @foreach ($pages as $page)

@@ -20,7 +20,7 @@
                     </div>
                     @endif
 
-                    <form action="{{ URL('admin/articles') }}" method="POST">
+                    <form action="{{ URL('admin/articles') }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="text" name="title" class="form-control" required="required">
                         <br>

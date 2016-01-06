@@ -41,7 +41,7 @@
 </div>
 
 <div id="footer" style="text-align: center;">
-    ©2015 <a href="https://lvwenhan.com">JohnLui</a>
+    ©2015 <a href="https://wuwenfu.com">吴文付</a>
 </div>
 
 </body>
